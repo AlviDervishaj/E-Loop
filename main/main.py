@@ -7,18 +7,22 @@ if __name__== "__main__": #main routine tha ky indiani po se di pse duhet
     surface = pygame.display.set_mode((540,720))
     surface.fill((255, 255, 255))
 
+#floor
     floor = pygame.image.load("images/floor.png").convert()
-    floor = pygame.transform.scale(floor,(128, 128))
-    surface.blit(floor,(0,592))
-    surface.blit(floor,(128,592))
-    surface.blit(floor,(256,592))
-    surface.blit(floor,(384,592))
-    surface.blit(floor,(512,592))
+    floor = pygame.transform.scale(floor,(256, 256))
+    surface.blit(floor,(0,464))
+    surface.blit(floor,(256,464))
+    surface.blit(floor,(512,464))
+    
+#character
+    character = pygame.image.load("images/character.png").convert()
+    character = pygame.transform.scale(character,(256, 256))
+    surface.blit(character,(135,464))
+
+
     pygame.display.flip()
-
-
+#main loop
     running = True
-
     while running:
         for event in pygame.event.get():
             if event.type == ESC:
