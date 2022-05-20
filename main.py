@@ -1,9 +1,9 @@
 from pygame import init, quit, time, event, QUIT, KEYDOWN, key, K_r, K_ESCAPE
-from helpers import fill_surface_with_color, blit_surface, draw_border, FLOOR, FLOOR_POSITION,\
-    CHARACTER, character_hit_box
+from helpers import blit_surface, draw_border, FLOOR, FLOOR_POSITION,\
+    CHARACTER, character_hit_box, fill_surface_with_color
 from keys import character_movement
 from constants import DISPLAY, FPS
-from colors import BLACK
+from colors import WHITE
 
 
 # initialize game functions
@@ -17,7 +17,7 @@ def quit_game() -> None:
 
 def draw_window() -> None:
     draw_border()
-    fill_surface_with_color(BLACK)
+    fill_surface_with_color(WHITE)
     # after filling screen black
     # display character
     blit_surface(FLOOR, FLOOR_POSITION)
@@ -28,9 +28,8 @@ def draw_window() -> None:
 # main function that will run once file is executed ( run )
 def main() -> None:
     handle_game_start()
-    DISPLAY.flip()
+    DISPLAY.update()
     clock = time.Clock()
-
     # main loop
     running: bool = True
     while running:

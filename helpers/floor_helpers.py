@@ -4,7 +4,7 @@ from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 
 floor_surface: Surface = load_image("floor.png")
 
-FLOOR: Surface = scale_image(floor_surface, (SCREEN_WIDTH, SCREEN_HEIGHT / 3))
+FLOOR: Surface = scale_image(floor_surface, (SCREEN_WIDTH, floor_surface.get_height() * 10))
 
 (FLOOR_WIDTH, FLOOR_HEIGHT) = FLOOR.get_size()
 

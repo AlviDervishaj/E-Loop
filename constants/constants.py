@@ -9,7 +9,7 @@ SCREEN_WIDTH: int = 540
 SCREEN_HEIGHT: int = 720
 
 # display instance
-DISPLAY: display = display 
+DISPLAY: display = display
 
 # window instance
 SURFACE: Surface = DISPLAY.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
