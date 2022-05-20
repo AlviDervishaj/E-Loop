@@ -1,4 +1,5 @@
 from pygame import Surface, init, quit, time, event, QUIT, KEYDOWN, key
+from colors.colors import BACKGROUND
 from helpers import fill_surface_with_color, scale_image, blit_surface, draw_border, load_image
 from keys import character_movement
 from constants import DISPLAY, FPS, SCREEN_HEIGHT, SCREEN_WIDTH
@@ -16,7 +17,7 @@ def quit_game() -> None:
 
 def draw_window(floor: Surface, floor_position: tuple, character: Surface, character_position: tuple) -> None:
     draw_border()
-    fill_surface_with_color(BLACK)
+    fill_surface_with_color(BACKGROUND)
     # after filling screen black
     # display character
     blit_surface(floor, floor_position)

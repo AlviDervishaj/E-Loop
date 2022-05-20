@@ -9,3 +9,5 @@ RED: tuple = (255, 0, 0)
 YELLOW: tuple = (255, 255, 0)
 
 PRUSSIAN_BLUE: tuple = (29, 53, 87)
+
+BACKGROUND: tuple = (255, 225, 148)
