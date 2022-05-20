@@ -1,6 +1,6 @@
-from pygame import init, quit, time, event, QUIT, KEYDOWN, key
+from pygame import init, quit, time, event, QUIT, KEYDOWN, key, K_r, K_ESCAPE
 from helpers import fill_surface_with_color, blit_surface, draw_border, FLOOR, FLOOR_POSITION,\
-    CHARACTER, CHARACTER_POSITION
+    CHARACTER, character_hit_box
 from keys import character_movement
 from constants import DISPLAY, FPS
 from colors import BLACK
@@ -21,7 +21,7 @@ def draw_window() -> None:
     # after filling screen black
     # display character
     blit_surface(FLOOR, FLOOR_POSITION)
-    blit_surface(CHARACTER, CHARACTER_POSITION)
+    blit_surface(CHARACTER, (character_hit_box.x, character_hit_box.y))
     DISPLAY.update()
 
 
@@ -45,7 +45,12 @@ def main() -> None:
             if _event_.type == KEYDOWN:
                 # user has pressed a key which we might user for
                 # character movement later
-                print(_event_.key)
+                if _event_.key == K_r:
+                    main()
+                if _event_.key == K_ESCAPE:
+                    run = False
+                    quit_game()
+                    return
         # each time loop reaches this line it will tell use which keys
         # are being pressed
         keys_pressed = key.get_pressed()
