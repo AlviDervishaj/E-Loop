@@ -3,10 +3,9 @@ from pygame import Surface
 from .images_helpers import scale_image, load_image
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 
-floor_surface: Surface = load_image("Sprites","floor.png")
+floor_surface: Surface = load_image("Sprites", "floor.png")
 
-FLOOR: Surface = scale_image(
-    floor_surface, (SCREEN_WIDTH, floor_surface.get_height() * 10))
+FLOOR: Surface = scale_image(floor_surface, (SCREEN_WIDTH, floor_surface.get_height() * 10))
 
 (FLOOR_WIDTH, FLOOR_HEIGHT) = FLOOR.get_size()
 
@@ -21,10 +20,3 @@ class Floor(p.sprite.Sprite):
         self.image = floor
         self.rect = self.image.get_rect()
         self.rect.center = FLOOR_POSITION
-
-
-# Create floor using floor class
-floor = Floor(FLOOR)
-# Create a sprite group so we can draw all sprites of that type simultaniously
-floor_group = p.sprite.Group()
-floor_group.add(floor)
