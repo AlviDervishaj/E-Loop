@@ -1,8 +1,7 @@
 from pygame import init, quit, time, event, QUIT, KEYDOWN, K_r, K_ESCAPE
 from constants.constants import SURFACE
-from helpers import draw_border, fill_surface_with_color, character_group, floor_group, background_group
+from helpers import draw_border, character_group, floor_group, background_group
 from constants import DISPLAY, FPS
-from colors import WHITE
 
 # initialize game functions
 

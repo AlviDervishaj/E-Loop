@@ -18,7 +18,7 @@ def draw_border() -> None:
 
 
 #Get background image and scale it
-background_surface: Surface = load_image("space.png")
+background_surface: Surface = load_image("Sprites","space.png")
 BACKGROUND: Surface = scale_image(background_surface, (SCREEN_WIDTH, SCREEN_HEIGHT))
 BACKGROUND_POSITION = (SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
 
