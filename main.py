@@ -1,6 +1,6 @@
 from pygame import init, quit, time, event, QUIT, KEYDOWN, key, K_r, K_ESCAPE
 from helpers import blit_surface, draw_border, FLOOR, FLOOR_POSITION,\
-    CHARACTER, character_hit_box, fill_surface_with_color
+   CHARACTER, character_hit_box, fill_surface_with_color
 from keys import character_movement
 from constants import DISPLAY, FPS
 from colors import WHITE
