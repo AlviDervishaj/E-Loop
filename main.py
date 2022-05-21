@@ -1,12 +1,12 @@
-from pygame import init, quit, time, event, QUIT, KEYDOWN, key, K_r, K_ESCAPE
-from helpers import blit_surface, draw_border, FLOOR, FLOOR_POSITION,\
-    CHARACTER, character_hit_box, fill_surface_with_color
-from keys import character_movement
+from pygame import init, quit, time, event, QUIT, KEYDOWN, K_r, K_ESCAPE
+from constants.constants import SURFACE
+from helpers import draw_border, fill_surface_with_color, character_group, floor_group, background_group
 from constants import DISPLAY, FPS
 from colors import WHITE
 
-
 # initialize game functions
+
+
 def handle_game_start() -> None:
     init()
 
@@ -16,20 +16,23 @@ def quit_game() -> None:
 
 
 def draw_window() -> None:
+    # update entire display every time function is called
+    DISPLAY.flip()
+    # draw border around window
     draw_border()
-    fill_surface_with_color(WHITE)
-    # after filling screen black
-    # display character
-    blit_surface(FLOOR, FLOOR_POSITION)
-    blit_surface(CHARACTER, (character_hit_box.x, character_hit_box.y))
-    DISPLAY.update()
+    # draw all our sprite groups in order
+    background_group.draw(SURFACE)
+    floor_group.draw(SURFACE)
+    character_group.draw(SURFACE)
+    # call update function of character class
+    character_group.update()
 
 
 # main function that will run once file is executed ( run )
 def main() -> None:
     handle_game_start()
-    DISPLAY.update()
     clock = time.Clock()
+
     # main loop
     running: bool = True
     while running:
@@ -50,11 +53,7 @@ def main() -> None:
                     run = False
                     quit_game()
                     return
-        # each time loop reaches this line it will tell use which keys
-        # are being pressed
-        keys_pressed = key.get_pressed()
-        # handle key presses for character
-        character_movement(keys_pressed)
+
         draw_window()
 
 
