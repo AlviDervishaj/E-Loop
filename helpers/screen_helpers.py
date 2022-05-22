@@ -1,5 +1,4 @@
-import pygame as p
-from pygame import Surface, draw
+from pygame import Surface, draw, sprite
 from constants import SURFACE, BORDER, SCREEN_HEIGHT, SCREEN_WIDTH
 from .images_helpers import load_image, scale_image
 from colors import BLACK
@@ -17,21 +16,10 @@ def draw_border() -> None:
     draw.rect(SURFACE, BLACK, BORDER)
 
 
-#Get background image and scale it
-background_surface: Surface = load_image("Sprites","space.png")
-BACKGROUND: Surface = scale_image(background_surface, (SCREEN_WIDTH, SCREEN_HEIGHT))
-BACKGROUND_POSITION = (SCREEN_WIDTH/2,SCREEN_HEIGHT/2)
-
-#Define Background Class for bg
-class Background(p.sprite.Sprite):
-    def __init__(self, bg: Surface) -> None:
+# Define Background Class for bg
+class Background(sprite.Sprite):
+    def __init__(self) -> None:
         super().__init__()
-        self.image = bg
+        self.image = scale_image(load_image("Sprites", "space.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.rect = self.image.get_rect()
-        self.rect.center = BACKGROUND_POSITION
-
-#Create background from class
-background = Background(BACKGROUND)
-#Create new group for background
-background_group = p.sprite.Group()
-background_group.add(background)
+        self.rect.center = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)

@@ -1,7 +1,7 @@
 from random import randrange
 import pygame as p
 from pygame import Surface
-from constants import SCREEN_WIDTH
+from constants import SCREEN_WIDTH, BOMB_MAX, BOMB_TIME
 from .images_helpers import load_image, scale_image
 
 # load bomb image and scale it
@@ -23,19 +23,21 @@ class Bomb(p.sprite.Sprite):
         super().__init__()
         self.image = bomb
         self.rect = self.image.get_rect()
-        self.rect.center = (randrange(0, SCREEN_WIDTH), -200)
+        self.rect.center = (randrange(50, SCREEN_WIDTH-50, 50), -200)
 
     def update(self) -> None:
         self.rect.y += 10
+        
 
 
-# Create Bomb group
-bomb = Bomb(BOMB)
-bomb_group = p.sprite.Group()
-bomb_group.add(bomb)
 
 # Create function to generate bomb
-
-
 def bomb_spawn() -> Bomb:
     return Bomb(BOMB)
+# Create function to generate bomb after set amount of seconds
+def handle_bomb_spawn(group, bomb_timer) -> None:
+
+    if len(group) < BOMB_MAX and bomb_timer >= BOMB_TIME:
+            bomb_timer = 0
+            new_bomb = bomb_spawn()
+            group.add(new_bomb)

@@ -1,11 +1,13 @@
 from pygame import init, quit, time, event, QUIT, KEYDOWN, K_r, K_ESCAPE
 from constants.constants import BOMB_MAX, BOMB_TIME, SURFACE
-from helpers import draw_border, bomb_group, character_group, floor_group, background_group, collision_detect, bomb_spawn
+from helpers import draw_border, collision_detect, bomb_spawn
+from constants.constants import SURFACE
+from helpers.bomb_helpers import handle_bomb_spawn
+from sprites import background_group, character_group, floor_group, bomb_group
 from constants import DISPLAY, FPS
 
+
 # initialize game functions
-
-
 def handle_game_start() -> None:
     init()
 
@@ -24,7 +26,7 @@ def draw_window() -> None:
     floor_group.draw(SURFACE)
     bomb_group.draw(SURFACE)
     character_group.draw(SURFACE)
-    # call update function of character class
+    # call update function of character and bomb class
     character_group.update()
     bomb_group.update()
 
@@ -56,10 +58,7 @@ def main() -> None:
                     quit_game()
                     return
         bomb_timer+= 1
-        if len(bomb_group) < BOMB_MAX and bomb_timer >= BOMB_TIME:
-            bomb_timer = 0
-            new_bomb = bomb_spawn()
-            bomb_group.add(new_bomb)
+        handle_bomb_spawn(bomb_group, bomb_timer)
         collision_detect(bomb_group, floor_group, character_group)
         draw_window()
 
