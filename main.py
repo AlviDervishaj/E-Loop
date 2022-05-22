@@ -1,11 +1,11 @@
 from pygame import init, quit, time, event, QUIT, KEYDOWN, K_r, K_ESCAPE
 from constants.constants import BOMB_MAX, BOMB_TIME, SURFACE
-from helpers import draw_border, bomb_group, character_group, floor_group, background_group, collision_detect, bomb_spawn
+from helpers import draw_border, bomb_group, collision_detect, bomb_spawn
+from sprites import background_group, character_group, floor_group
 from constants import DISPLAY, FPS
 
+
 # initialize game functions
-
-
 def handle_game_start() -> None:
     init()
 
