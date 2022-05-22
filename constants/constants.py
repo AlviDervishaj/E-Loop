@@ -5,7 +5,7 @@ font.init()
 # initialize sound
 mixer.init()
 # width and height of the window
-SCREEN_WIDTH: int = 540
+SCREEN_WIDTH: int = 1280
 SCREEN_HEIGHT: int = 720
 
 # display instance
@@ -22,3 +22,7 @@ VELOCITY: int = 5
 
 # frames per second, may need later
 FPS: int = 60
+
+# max number of bombs in screen, number of frames needed to spawn a rocket
+BOMB_MAX = 5
+BOMB_TIME = 60

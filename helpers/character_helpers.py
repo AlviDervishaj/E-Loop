@@ -4,26 +4,19 @@ from .floor_helpers import FLOOR_HEIGHT
 from pygame import K_LEFT, K_RIGHT, K_a, K_d, Surface, sprite, key
 
 # load all sprites for walk animation
-char_walk = [
-             load_image("Char_Animation_Right", "Char1.png"), load_image("Char_Animation_Right", "Char2.png"),
-             load_image("Char_Animation_Right", "Char3.png"), load_image("Char_Animation_Right", "Char4.png"),
-             load_image("Char_Animation_Right", "Char5.png"), load_image("Char_Animation_Right", "Char6.png"),
-             load_image("Char_Animation_Right", "Char7.png"), load_image("Char_Animation_Right", "Char8.png"),
-             load_image("Char_Animation_Right", "Char9.png"), load_image("Char_Animation_Right", "Char10.png")
-             ]
+char_walk: list = [load_image("Char_Animation_Right", "Char1.png"), load_image("Char_Animation_Right", "Char2.png"), load_image("Char_Animation_Right", "Char3.png"), load_image(
+    "Char_Animation_Right", "Char4.png"), load_image("Char_Animation_Right", "Char5.png"), load_image("Char_Animation_Right", "Char6.png"), load_image(
+    "Char_Animation_Right", "Char7.png"), load_image("Char_Animation_Right", "Char8.png"), load_image("Char_Animation_Right", "Char9.png"), load_image("Char_Animation_Right", "Char10.png")]
 
 # load still image and scale it
-char_still = load_image("Char_Still", "Still0.png")
-char_still_scaled = scale_image(char_still, (105, 135))
+char_still: Surface = load_image("Char_Still","Still0.png")
+char_still_scaled: Surface = scale_image(char_still, (105, 135))
 
 # scale all walk animation images
-char_walk_scaled = [
-                    scale_image(char_walk[0], (105, 135)), scale_image(char_walk[1], (105, 135)),
-                    scale_image(char_walk[2], (105, 135)), scale_image(char_walk[3], (105, 135)),
-                    scale_image(char_walk[4], (105, 135)), scale_image(char_walk[5], (105, 135)),
-                    scale_image(char_walk[6], (105, 135)), scale_image(char_walk[7], (105, 135)),
-                    scale_image(char_walk[8], (105, 135)), scale_image(char_walk[9], (105, 135))
-                    ]
+char_walk_scaled: list = [scale_image(char_walk[0], (105, 135)), scale_image(char_walk[1], (105, 135)), scale_image(char_walk[2], (105, 135)), scale_image(char_walk[3], (105, 135)), scale_image(
+    char_walk[4], (105, 135)), scale_image(char_walk[5], (105, 135)), scale_image(char_walk[6], (105, 135)), scale_image(char_walk[7], (105, 135)), scale_image(
+    char_walk[8], (105, 135)), scale_image(char_walk[9], (105, 135))]
+
 
 # Get size of one sprite
 (CHARACTER_WIDTH, CHARACTER_HEIGHT) = char_walk_scaled[0].get_size()
