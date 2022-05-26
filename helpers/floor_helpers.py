@@ -15,8 +15,8 @@ FLOOR_POSITION = (SCREEN_WIDTH/2, SCREEN_HEIGHT - FLOOR.get_height()/2)
 # Define class for Floor
 
 class Floor(p.sprite.Sprite):
-    def __init__(self, floor: Surface) -> None:
+    def __init__(self) -> None:
         super().__init__()
-        self.image = floor
+        self.image = FLOOR
         self.rect = self.image.get_rect()
         self.rect.center = FLOOR_POSITION

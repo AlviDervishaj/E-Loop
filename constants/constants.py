@@ -18,11 +18,11 @@ SURFACE: Surface = DISPLAY.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 BORDER: Rect = Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # Moving Velocity
-VELOCITY: int = 5
+VELOCITY: int = 10
 
 # frames per second, may need later
 FPS: int = 60
 
 # max number of bombs in screen, number of frames needed to spawn a rocket
-BOMB_MAX = 5
-BOMB_TIME = 60
+BOMB_MAX: int = 60
+BOMB_TIME: int = 10
