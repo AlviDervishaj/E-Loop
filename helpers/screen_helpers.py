@@ -20,6 +20,6 @@ def draw_border() -> None:
 class Background(sprite.Sprite):
     def __init__(self) -> None:
         super().__init__()
-        self.image = scale_image(load_image("Sprites", "space.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.image = scale_image(load_image("Sprites", "sky1.png"), (SCREEN_WIDTH, SCREEN_HEIGHT))
         self.rect = self.image.get_rect()
         self.rect.center = (SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)

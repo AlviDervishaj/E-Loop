@@ -19,27 +19,27 @@ char_walk = [
 
 # load still image and scale it
 char_still = load_image("Char_Still", "Still0.png")
-char_still_scaled = scale_image(char_still, (105, 135))
+char_still_scaled = scale_image(char_still, (char_still.get_width()*4, char_still.get_height()*4 ))
 
 # scale all walk animation images
 char_walk_scaled = [
-    scale_image(char_walk[0], (105, 135)), scale_image(
-        char_walk[1], (105, 135)),
-    scale_image(char_walk[2], (105, 135)), scale_image(
-        char_walk[3], (105, 135)),
-    scale_image(char_walk[4], (105, 135)), scale_image(
-        char_walk[5], (105, 135)),
-    scale_image(char_walk[6], (105, 135)), scale_image(
-        char_walk[7], (105, 135)),
-    scale_image(char_walk[8], (105, 135)), scale_image(
-        char_walk[9], (105, 135))
+    scale_image(char_walk[0], (char_still.get_width()*4, char_still.get_height()*4 )), scale_image(
+        char_walk[1], (char_still.get_width()*4,  char_still.get_height()*4)),
+    scale_image(char_walk[2], (char_still.get_width()*4,  char_still.get_height()*4)), scale_image(
+        char_walk[3], (char_still.get_width()*4,  char_still.get_height()*4)),
+    scale_image(char_walk[4], (char_still.get_width()*4,  char_still.get_height()*4)), scale_image(
+        char_walk[5], (char_still.get_width()*4,  char_still.get_height()*4)),
+    scale_image(char_walk[6], (char_still.get_width()*4,  char_still.get_height()*4)), scale_image(
+        char_walk[7], (char_still.get_width()*4,  char_still.get_height()*4)),
+    scale_image(char_walk[8], (char_still.get_width()*4,  char_still.get_height()*4)), scale_image(
+        char_walk[9], (char_still.get_width()*4,  char_still.get_height()*4))
 ]
 
 # Get size of one sprite
 (CHARACTER_WIDTH, CHARACTER_HEIGHT) = char_walk_scaled[0].get_size()
 
 CHARACTER_X = SCREEN_WIDTH / 2
-CHARACTER_Y = SCREEN_HEIGHT - FLOOR_HEIGHT - CHARACTER_HEIGHT/2
+CHARACTER_Y = SCREEN_HEIGHT - FLOOR_HEIGHT - CHARACTER_HEIGHT/2 + 12 #+12 per pjesen transparente lart plus q tduklet sikur esht nmes tbarit
 
 
 # Defining class for our character
