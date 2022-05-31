@@ -56,7 +56,6 @@ class Character(sprite.Sprite):
         self.right = False
         self.walk_count = 0
 
-
         # Is a unit for how many shields we can activate
         self.energy = 3
 
@@ -78,7 +77,7 @@ class Character(sprite.Sprite):
             self.image = self.still
         
         # Hitbox Purposes only
-        draw.rect(SURFACE,(255,0,0), self.rect, 2)
+        draw.rect(SURFACE, (255, 0, 0), self.rect, 2)
 
     def handle_movement(self, keys) -> None:
         # move character left as long as it is on screen
@@ -92,7 +91,6 @@ class Character(sprite.Sprite):
         # move character right as long as it is on screen
         elif (keys[K_d] or keys[K_RIGHT]) and self.rect.x + VELOCITY + self.rect.width < SCREEN_WIDTH:
             self.rect.x += VELOCITY
-
             # update player direction to left, also for animation
             self.right = True
             self.left = False
@@ -105,7 +103,7 @@ class Character(sprite.Sprite):
 
     # A function that returns the position of the character
     def pos(self) -> tuple:
-        return (self.rect.centerx, self.rect.centery)
+        return self.rect.centerx, self.rect.centery
 
     # Creates new shield when the conditions are met
     def enable_shield(self, shield_group) -> bool:

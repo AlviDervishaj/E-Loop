@@ -10,6 +10,7 @@ timepaused = 0
 ispaused = False
 extratime = 0
 
+
 # initialize game functions
 def handle_game_start() -> None:
     init()
@@ -19,9 +20,10 @@ def handle_game_start() -> None:
 def quit_game() -> None:
     quit()
 
+
 def pause_game() -> None:
     global ispaused, timepaused, extratime
-    if ispaused == True:
+    if ispaused is True:
         ispaused = False
         new_time = time.get_ticks()
         extratime = new_time - timepaused
@@ -29,11 +31,13 @@ def pause_game() -> None:
         ispaused = True
         timepaused = time.get_ticks()
 
+
 def update_pointer() -> None:
     # Draws cursor
     pointer_group.draw(SURFACE)
     # Update cursor
     pointer_group.update()
+
 
 def draw_window() -> None:
     # update entire display
@@ -69,6 +73,7 @@ def main() -> None:
         clock.tick(FPS)
         for _event_ in event.get():
             if _event_.type == QUIT:
+                # quit game after closing window
                 running = False
                 quit_game()
                 return
@@ -76,17 +81,21 @@ def main() -> None:
                 # user has pressed a key which we might user for
                 # character movement later
                 if _event_.key == K_r:
+                    # restart game
                     main()
                 if _event_.key == K_ESCAPE:
-                    run = False
+                    # quit game
+                    running = False
                     quit_game()
                     return
                 if _event_.key == K_e:
+                    # give character shield
                     if character.enable_shield(shield_group):
                         pos = character.pos()
                         new_shield = Shield(pos)
                         shield_group.add(new_shield)
                 if _event_.key == K_p:
+                    # pause game
                     pause_game()
 
         # Draw everything everytime function is called

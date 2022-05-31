@@ -35,9 +35,9 @@ class Bomb(sprite.Sprite):
 
 
 # Function for handling difficulty
-def difficulty_handler(timeP) -> int:
-    x = time.get_ticks() - timeP
-    x = x//(BOMB_TIME*1000)
+def difficulty_handler(time_paused) -> int:
+    _handle_time = time.get_ticks() - time_paused
+    x = _handle_time // (BOMB_TIME * 1000)
     if x >= BOMB_TIME - 0.15:
         x = BOMB_TIME - 0.1
     return x
@@ -49,7 +49,7 @@ def bomb_spawn() -> Bomb:
 
 
 # Create function to generate bomb after set amount of seconds
-def handle_bomb_spawn(group, timeP) -> None:
+def handle_bomb_spawn(group, time_paused) -> None:
     global Spawn_time
     bomb_timer = time.get_ticks()
     bomb_timer -= Spawn_time

@@ -1,5 +1,5 @@
 from pygame import sprite
-from helpers import Background, char_walk_scaled, char_still_scaled, FLOOR, Floor, Character, Bomb, Pointer
+from helpers import Background, char_walk_scaled, char_still_scaled, Floor, Character, Bomb, Pointer
 
 # add instances for each class
 background = Background()
@@ -7,8 +7,6 @@ character = Character(char_walk_scaled, char_still_scaled)
 floor = Floor()
 bomb = Bomb()
 pointer = Pointer()
-
-
 
 # add groups for all sprites
 background_group = sprite.Group()

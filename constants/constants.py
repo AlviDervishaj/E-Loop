@@ -24,5 +24,5 @@ VELOCITY: int = 10
 FPS: int = 60
 
 # max number of bombs in screen, number of frames needed to spawn a rocket
-BOMB_MAX: int = 60
+BOMB_MAX: int = 5
 BOMB_TIME: int = 10
