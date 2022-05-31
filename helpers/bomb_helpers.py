@@ -53,7 +53,7 @@ def handle_bomb_spawn(group, time_paused) -> None:
     global Spawn_time
     bomb_timer = time.get_ticks()
     bomb_timer -= Spawn_time
-    if len(group) < BOMB_MAX and bomb_timer/1000 > BOMB_TIME - difficulty_handler(timeP):
+    if len(group) < BOMB_MAX and bomb_timer/1000 > BOMB_TIME - difficulty_handler(time_paused):
 
         Spawn_time = time.get_ticks()
         new_bomb = bomb_spawn()
