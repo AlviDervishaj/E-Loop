@@ -70,7 +70,7 @@ class Character(sprite.Sprite):
         self.walk_count = 0
 
         # Is a unit for how many shields we can activate
-        self.energy = 3
+        self.energy = 0
 
     # update function to handle movement
     def update(self) -> None:
@@ -125,3 +125,5 @@ class Character(sprite.Sprite):
             return True
         else:
             return False
+    def add_shield(self) -> None:
+        self.energy+=1

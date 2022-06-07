@@ -94,6 +94,7 @@ def main() -> None:
                 else:
                     question = False
                     pause_game()
+                    character.add_shield()
             if _event_.type == MOUSEBUTTONDOWN:
                 isclicked = True
             if _event_.type == DEATH:
