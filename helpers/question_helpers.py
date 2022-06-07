@@ -47,7 +47,7 @@ class Question_Drop(sprite.Sprite):
         self.rect.center = (randrange(50, SCREEN_WIDTH-50, 50), -200)
 
     def update(self) -> None:
-        self.rect.y += 8
+        self.rect.y += 5
         # Hitbox Purposes only
         #draw.rect(SURFACE, (255, 0, 0), self.rect, 2)
 

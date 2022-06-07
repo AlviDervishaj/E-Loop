@@ -98,7 +98,7 @@ def main() -> None:
                 isclicked = True
             if _event_.type == DEATH:
                 pause_game()
-                game_over = Question("You lost! " + str(score.myscore()))
+                game_over = Question("You lost! Score: " + str(score.myscore()))
                 popup_group.add(game_over)
                 
             if _event_.type == KEYDOWN:
@@ -118,6 +118,8 @@ def main() -> None:
                         pos = character.pos()
                         new_shield = Shield(pos)
                         shield_group.add(new_shield)
+                if _event_.key == K_p:
+                    pause_game()
 
         # Draw everything everytime function is called
         draw_window()
