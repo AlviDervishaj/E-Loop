@@ -1,5 +1,4 @@
-import pygame as p
-from pygame import Surface
+from pygame import Surface, sprite
 from .images_helpers import scale_image, load_image
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 
@@ -14,7 +13,7 @@ FLOOR_POSITION = (SCREEN_WIDTH/2, SCREEN_HEIGHT - FLOOR.get_height()/2)
 
 # Define class for Floor
 
-class Floor(p.sprite.Sprite):
+class Floor(sprite.Sprite):
     def __init__(self) -> None:
         super().__init__()
         self.image = FLOOR

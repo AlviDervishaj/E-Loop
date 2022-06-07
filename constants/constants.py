@@ -1,4 +1,4 @@
-from pygame import Surface, display, font, mixer, Rect
+from pygame import Surface, display, font, mixer, Rect, USEREVENT
 
 # initialize font
 font.init()
@@ -18,11 +18,16 @@ SURFACE: Surface = DISPLAY.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 BORDER: Rect = Rect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # Moving Velocity
-VELOCITY: int = 10
+VELOCITY: int = 8
 
 # frames per second, may need later
-FPS: int = 60
+FPS: int = 120
 
 # max number of bombs in screen, number of frames needed to spawn a rocket
 BOMB_MAX: int = 5
 BOMB_TIME: int = 10
+
+# for Questions
+QUESTION_TIME = 5
+NEW_QUESTION = USEREVENT
+DEATH = USEREVENT + 1
