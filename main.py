@@ -1,9 +1,9 @@
 from pygame import MOUSEBUTTONDOWN, K_e, K_p, init, quit, time, event, QUIT, KEYDOWN, K_r, K_ESCAPE, mouse
-from constants import SURFACE, NEW_QUESTION, DEATH
+from constants import SURFACE, NEW_QUESTION, DEATH, PLAYER_DAMAGE
 from helpers import draw_border, collision_detect, Shield, Pop_Up, Question
-from helpers import handle_bomb_spawn, handle_question_spawn, question_collision_detect
+from helpers import handle_bomb_wave, handle_question_spawn, question_collision_detect
 from sprites import background_group, floor_group, bomb_group, shield_group, character_group, character
-from sprites import pointer_group, question_drop_group, popup_group, score
+from sprites import pointer_group, question_drop_group, popup_group, score, HUD_object
 from constants import DISPLAY, FPS
 
 # General variables and settings
@@ -12,7 +12,10 @@ ispaused = False
 extratime = 0
 isclicked = False
 question = False
+durability = 0
 # initialize game functions
+
+
 def handle_game_start() -> None:
     init()
     mouse.set_visible(False)
@@ -41,7 +44,6 @@ def update_others() -> None:
     pointer_group.update()
 
 
-
 def draw_window() -> None:
     # update entire display
     DISPLAY.flip()
@@ -55,6 +57,9 @@ def draw_window() -> None:
     character_group.draw(SURFACE)
     shield_group.draw(SURFACE)
     score.draw()
+    HUD_object.draw()
+    HUD_object.draw_health(character.get_health())
+
 
 def update_window() -> None:
     # call update function of character and bomb class
@@ -63,21 +68,26 @@ def update_window() -> None:
     bomb_group.update()
     question_drop_group.update()
     score.update(extratime)
+    HUD_object.update(durability, shield_group, character.get_shield_amount())
 
 # main function that will run once file is executed ( run )
+
+
 def main() -> None:
     handle_game_start()
     clock = time.Clock()
 
     # main loop
     running: bool = True
-    
+
     while running:
         # control speed of while loop
         # so that the game runs on constant FPS
         clock.tick(FPS)
-        global isclicked
+        global isclicked, durability
         isclicked = False
+        if len(shield_group) > 0:
+            durability = new_shield.get_durability()
         for _event_ in event.get():
             if _event_.type == QUIT:
                 # quit game after closing window
@@ -87,7 +97,8 @@ def main() -> None:
             if _event_.type == NEW_QUESTION:
                 global question
                 if question == False:
-                    q = Pop_Up("State your programming knowledge","Beginner","Amateur","Advanced","Expert")
+                    q = Pop_Up("State your programming knowledge",
+                               "Beginner", "Amateur", "Advanced", "Expert")
                     popup_group.add(q)
                     question = True
                     pause_game()
@@ -95,13 +106,16 @@ def main() -> None:
                     question = False
                     pause_game()
                     character.add_shield()
+            if _event_.type == PLAYER_DAMAGE:
+                character.damage()
             if _event_.type == MOUSEBUTTONDOWN:
                 isclicked = True
             if _event_.type == DEATH:
                 pause_game()
-                game_over = Question("You lost! Score: " + str(score.myscore()))
+                game_over = Question(
+                    "You lost! Score: " + str(score.myscore()))
                 popup_group.add(game_over)
-                
+
             if _event_.type == KEYDOWN:
                 # user has pressed a key which we might user for
                 # character movement later
@@ -119,21 +133,24 @@ def main() -> None:
                         pos = character.pos()
                         new_shield = Shield(pos)
                         shield_group.add(new_shield)
-                if _event_.key == K_p:
-                    pause_game()
+                # Developer purposes only
+                # if _event_.key == K_p:
+                    # pause_game()
 
         # Draw everything everytime function is called
         draw_window()
         # If not paused update every group
         if not ispaused:
-            handle_bomb_spawn(bomb_group,extratime)
-            handle_question_spawn(question_drop_group,extratime)
+            handle_bomb_wave(bomb_group, extratime)
+            handle_question_spawn(question_drop_group, extratime)
             collision_detect(bomb_group, floor_group, character_group)
-            question_collision_detect(question_drop_group, floor_group, character_group)
+            question_collision_detect(
+                question_drop_group, floor_group, character_group)
             update_window()
         # Draws Pointer even when paused
         if ispaused:
             update_others()
+
 
 # do not allow this file to run when imported.
 # Run only when executed

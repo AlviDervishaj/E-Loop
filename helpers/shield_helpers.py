@@ -1,7 +1,6 @@
 from .images_helpers import scale_image, load_image
 from pygame import sprite
 
-
 # Import all sprites for shield/shield animation - for later
 shield_surface = load_image("Sprites", "Shield_PROT1.png")
 
@@ -16,7 +15,7 @@ class Shield(sprite.Sprite):
         super().__init__()
         self.image = SHIELD
         self.rect = self.image.get_rect()
-        self.durability = 10
+        self.durability = 9
         self.rect.center = pos
 
     # Damage function for the shield
@@ -34,4 +33,5 @@ class Shield(sprite.Sprite):
     def collision(self, bomb) -> None:
         if sprite.spritecollide(self, bomb, True):
             self.damage()
-            print("mrojtje nga zoti")
+    def get_durability(self) -> int:
+        return self.durability

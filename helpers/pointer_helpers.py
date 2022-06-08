@@ -1,4 +1,5 @@
 from .images_helpers import scale_image, load_image
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from pygame import sprite, mouse
 
 # Import all sprites for pointer
@@ -16,8 +17,8 @@ class Pointer(sprite.Sprite):
         self.image = POINTER
         self.rect = self.image.get_rect()
         self.durability = 10
-        self.rect.x = mouse.get_pos()[0]
-        self.rect.y = mouse.get_pos()[1]
+        self.rect.x = SCREEN_WIDTH
+        self.rect.y = SCREEN_HEIGHT
     def update(self) -> None:
         self.rect.x = mouse.get_pos()[0]
         self.rect.y = mouse.get_pos()[1]

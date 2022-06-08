@@ -1,7 +1,7 @@
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH, VELOCITY, SURFACE
-from .images_helpers import flip_image_x, scale_image, load_image
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH, VELOCITY, DEATH
+from .images_helpers import scale_image, load_image
 from .floor_helpers import FLOOR_HEIGHT
-from pygame import K_LEFT, K_RIGHT, K_SLASH, K_a, K_d, K_e, Surface, sprite, key, draw
+from pygame import K_LEFT, K_RIGHT, K_a, K_d, Surface, sprite, key, event
 
 # load all sprites for walk right animation
 char_walk_right = [
@@ -25,11 +25,12 @@ char_walk_left = [
 
 # load still image and scale it
 char_still = load_image("Char_Still", "Still0.png")
-char_still_scaled = scale_image(char_still, (char_still.get_width()*5, char_still.get_height()*5 ))
+char_still_scaled = scale_image(
+    char_still, (char_still.get_width()*5, char_still.get_height()*5))
 
 # scale all walk right animation images
 char_walk_right_scaled = [
-    scale_image(char_walk_right[0], (char_still.get_width()*5, char_still.get_height()*5 )), scale_image(
+    scale_image(char_walk_right[0], (char_still.get_width()*5, char_still.get_height()*5)), scale_image(
         char_walk_right[1], (char_still.get_width()*5,  char_still.get_height()*5)),
     scale_image(char_walk_right[2], (char_still.get_width()*5,  char_still.get_height()*5)), scale_image(
         char_walk_right[3], (char_still.get_width()*5,  char_still.get_height()*5)),
@@ -39,7 +40,7 @@ char_walk_right_scaled = [
 
 # scale all walk left animation images
 char_walk_left_scaled = [
-    scale_image(char_walk_left[0], (char_still.get_width()*5, char_still.get_height()*5 )), scale_image(
+    scale_image(char_walk_left[0], (char_still.get_width()*5, char_still.get_height()*5)), scale_image(
         char_walk_left[1], (char_still.get_width()*5,  char_still.get_height()*5)),
     scale_image(char_walk_left[2], (char_still.get_width()*5,  char_still.get_height()*5)), scale_image(
         char_walk_left[3], (char_still.get_width()*5,  char_still.get_height()*5)),
@@ -51,7 +52,8 @@ char_walk_left_scaled = [
 (CHARACTER_WIDTH, CHARACTER_HEIGHT) = char_walk_right_scaled[0].get_size()
 
 CHARACTER_X = SCREEN_WIDTH / 2
-CHARACTER_Y = SCREEN_HEIGHT - FLOOR_HEIGHT - CHARACTER_HEIGHT/2 + 12 #+12 per pjesen transparente lart plus q tduklet sikur esht nmes tbarit
+# +12 per pjesen transparente lart plus q tduklet sikur esht nmes tbarit
+CHARACTER_Y = SCREEN_HEIGHT - FLOOR_HEIGHT - CHARACTER_HEIGHT/2 + 12
 
 
 # Defining class for our character
@@ -64,13 +66,15 @@ class Character(sprite.Sprite):
         self.image = self.still
         self.rect = self.image.get_rect()
         self.rect.center = [CHARACTER_X, CHARACTER_Y]
-        self.hitbox = self.rect.inflate(-30,0)
+        self.hitbox = self.rect.inflate(-30, 0)
         self.left = False
         self.right = False
         self.walk_count = 0
 
         # Is a unit for how many shields we can activate
         self.energy = 0
+        # total character health
+        self.health = 3
 
     # update function to handle movement
     def update(self) -> None:
@@ -88,7 +92,7 @@ class Character(sprite.Sprite):
             self.image = self.walkleft[self.walk_count // 4]
         elif not self.left and not self.right:
             self.image = self.still
-        
+
         # Hitbox Purposes only
         #draw.rect(SURFACE, (255, 0, 0), self.rect, 2)
 
@@ -125,5 +129,17 @@ class Character(sprite.Sprite):
             return True
         else:
             return False
+
     def add_shield(self) -> None:
-        self.energy+=1
+        self.energy += 1
+
+    def get_shield_amount(self) -> int:
+        return self.energy
+
+    def damage(self) -> None:
+        self.health -= 1
+        if self.health <= 0:
+            event.post(event.Event(DEATH))
+
+    def get_health(self) -> int:
+        return self.health

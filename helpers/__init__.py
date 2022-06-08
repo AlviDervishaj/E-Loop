@@ -6,3 +6,4 @@ from .bomb_helpers import *
 from .shield_helpers import *
 from .pointer_helpers import *
 from .question_helpers import *
+from .HUD_helpers import *

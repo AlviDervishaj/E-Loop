@@ -1,8 +1,7 @@
 from random import randrange
 from colors import WHITE
-from pygame import Surface, sprite, time, draw, event, font, mouse
-from constants import SCREEN_WIDTH, QUESTION_TIME, SURFACE, SCREEN_HEIGHT
-from constants.constants import NEW_QUESTION
+from pygame import Surface, sprite, time, event, font, mouse
+from constants import SCREEN_WIDTH, QUESTION_TIME, SURFACE, SCREEN_HEIGHT, NEW_QUESTION
 from .images_helpers import load_image, scale_image
 
 # load question image and scale it
@@ -32,7 +31,7 @@ Spawn_time = 0
 # Define collision detection, later will detect collision with barriers as well
 def question_collision_detect(question, floor, character) -> None:
     if sprite.groupcollide(question, floor, True, False):
-        print("0")
+        pass
     elif sprite.groupcollide(question, character, True, False):
         print("A new question appears")
         event.post(event.Event(NEW_QUESTION))

@@ -25,9 +25,14 @@ FPS: int = 120
 
 # max number of bombs in screen, number of frames needed to spawn a rocket
 BOMB_MAX: int = 30
-BOMB_TIME: int = 10
+BOMB_TIME: int = 4
+BOMB_WAVE_MIN: int = 5
 
 # for Questions
-QUESTION_TIME = 30
+QUESTION_TIME = 60
+# Question event
 NEW_QUESTION = USEREVENT
+# Game Over Event
 DEATH = USEREVENT + 1
+# Damage
+PLAYER_DAMAGE = USEREVENT + 2
