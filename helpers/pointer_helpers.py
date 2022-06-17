@@ -16,7 +16,6 @@ class Pointer(sprite.Sprite):
         super().__init__()
         self.image = POINTER
         self.rect = self.image.get_rect()
-        self.durability = 10
         self.rect.x = SCREEN_WIDTH
         self.rect.y = SCREEN_HEIGHT
     def update(self) -> None:

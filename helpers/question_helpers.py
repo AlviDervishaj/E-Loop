@@ -29,10 +29,8 @@ Spawn_time = 0
 
 
 # Define collision detection, later will detect collision with barriers as well
-def question_collision_detect(question, floor, character) -> None:
-    if sprite.groupcollide(question, floor, True, False):
-        pass
-    elif sprite.groupcollide(question, character, True, False):
+def question_collision_detect(question, character) -> None:
+    if sprite.groupcollide(question, character, True, False):
         print("A new question appears")
         event.post(event.Event(NEW_QUESTION))
 
@@ -44,11 +42,16 @@ class Question_Drop(sprite.Sprite):
         self.image = QUESTION_DROP
         self.rect = self.image.get_rect()
         self.rect.center = (randrange(50, SCREEN_WIDTH-50, 50), -200)
+        self.velocity = 5
 
-    def update(self) -> None:
-        self.rect.y += 5
+    def update(self, floor) -> None:
+        self.rect.y += self.velocity
+        self.collision(floor)
         # Hitbox Purposes only
         #draw.rect(SURFACE, (255, 0, 0), self.rect, 2)
+    def collision(self, floor) -> None:
+        if sprite.spritecollide(self,floor, False):
+            self.velocity = 0
 
 
 # Create function to generate question

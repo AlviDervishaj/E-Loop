@@ -66,7 +66,6 @@ class Character(sprite.Sprite):
         self.image = self.still
         self.rect = self.image.get_rect()
         self.rect.center = [CHARACTER_X, CHARACTER_Y]
-        self.hitbox = self.rect.inflate(-30, 0)
         self.left = False
         self.right = False
         self.walk_count = 0

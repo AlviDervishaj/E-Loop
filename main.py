@@ -52,8 +52,8 @@ def draw_window() -> None:
     # draw all our sprite groups in order
     background_group.draw(SURFACE)
     floor_group.draw(SURFACE)
-    bomb_group.draw(SURFACE)
     question_drop_group.draw(SURFACE)
+    bomb_group.draw(SURFACE)
     character_group.draw(SURFACE)
     shield_group.draw(SURFACE)
     score.draw()
@@ -66,7 +66,7 @@ def update_window() -> None:
     character_group.update()
     shield_group.update(character.pos(), bomb_group)
     bomb_group.update()
-    question_drop_group.update()
+    question_drop_group.update(floor_group)
     score.update(extratime)
     HUD_object.update(durability, shield_group, character.get_shield_amount())
 
@@ -145,7 +145,7 @@ def main() -> None:
             handle_question_spawn(question_drop_group, extratime)
             collision_detect(bomb_group, floor_group, character_group)
             question_collision_detect(
-                question_drop_group, floor_group, character_group)
+                question_drop_group, character_group)
             update_window()
         # Draws Pointer even when paused
         if ispaused:

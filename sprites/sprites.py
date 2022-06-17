@@ -5,7 +5,7 @@ from helpers import Floor, Character, Bomb, Pointer, Question_Drop, Score, HUD_D
 background = Background()
 character = Character(char_walk_right_scaled, char_walk_left_scaled, char_still_scaled)
 floor = Floor()
-bomb = Bomb(0)
+bomb = Bomb(1)
 pointer = Pointer()
 question_drop = Question_Drop()
 score = Score()

@@ -33,7 +33,7 @@ class Bomb(sprite.Sprite):
         super().__init__()
         self.image = BOMB
         self.rect = self.image.get_rect()
-        self.rect.center = (randrange(10, SCREEN_WIDTH-10, 30), -(200 + 500*i))
+        self.rect.center = (randrange(10, SCREEN_WIDTH-10, 30), -(500*i))
         self.velocity = randrange(3,20)
     def update(self) -> None:
         self.rect.y += self.velocity
@@ -43,9 +43,9 @@ class Bomb(sprite.Sprite):
 
 # Function for handling difficulty
 def difficulty_handler(wave_index) -> int:
-    minus_time = wave_index
-    if minus_time >= BOMB_TIME - 0.55:
-        minus_time = BOMB_TIME - 0.5
+    minus_time = wave_index*0.5
+    if minus_time >= BOMB_TIME - 0.65:
+        minus_time = BOMB_TIME - 0.6
     return minus_time
 
 
@@ -96,7 +96,7 @@ class Score(sprite.Sprite):
 
     def update(self, time_paused) -> None:
         scoretimer = time.get_ticks() - time_paused
-        self.score = scoretimer / 500
+        self.score = scoretimer / 500 
         self.text = self.font.render(str(int(self.score)), True, RED)
 
     def myscore(self) -> int:
