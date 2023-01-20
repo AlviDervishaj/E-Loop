@@ -1,4 +1,4 @@
-﻿# E-LOOP
+# E-LOOP
 Main concepts.
 
 - Project walkthrough
