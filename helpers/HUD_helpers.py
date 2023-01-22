@@ -12,12 +12,25 @@ class HUD_Display(sprite.Sprite):
         self.shield.draw()
         self.shield_amount = Amount_Display()
         self.shield_amount.draw()
-        self.heart = [ 
-            Display_Heath(0), 
-            Display_Heath(1), 
-            Display_Heath(2), 
-            Display_Heath(3), 
-            Display_Heath(4)
+        self.heartRow1 = [ 
+            Display_Heath(0,1), 
+            Display_Heath(1,1), 
+            Display_Heath(2,1), 
+            Display_Heath(3,1), 
+            Display_Heath(4,1),
+            Display_Heath(5,1), 
+            Display_Heath(6,1), 
+            Display_Heath(7,1)
+            ]
+        self.heartRow2 = [ 
+            Display_Heath(0,2), 
+            Display_Heath(1,2), 
+            Display_Heath(2,2), 
+            Display_Heath(3,2), 
+            Display_Heath(4,2),
+            Display_Heath(5,2), 
+            Display_Heath(6,2), 
+            Display_Heath(7,2)
             ]
     def draw(self) -> None:
         # Draw all hud elements
@@ -31,7 +44,11 @@ class HUD_Display(sprite.Sprite):
         self.shield_amount.update(shield_amount)
     def draw_health(self, health) -> None:
         for i in range(health):
-            self.heart[i].draw()
+            if(i<8):
+                self.heartRow1[i].draw()
+            else:
+                self.heartRow2[i-8].draw()
+            
 
 # Load and scale all images for Displaying Shield amount
 shield1 = load_image("Shield_Display", "SHdisplay1.png")
@@ -106,10 +123,10 @@ HEART: Surface = scale_image(
 
 # Create Display_Health Class
 class Display_Heath(sprite.Sprite):
-    def __init__(self, index: int) -> None:
+    def __init__(self, index: int, row: int) -> None:
         super().__init__()
         self.image = HEART
         self.rect = self.image.get_rect()
-        self.rect.center = (35 + index*30,25)
+        self.rect.center = (35 + index*30,25 + (row-1)*30)
     def draw(self) -> None:
         SURFACE.blit(self.image, self.rect)

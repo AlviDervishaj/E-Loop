@@ -25,16 +25,17 @@ def collision_detect(bomb, floor, character) -> None:
         pass
     elif sprite.groupcollide(bomb, character, True, False):
         event.post(event.Event(PLAYER_DAMAGE))
+        #pass
 
 
 # Define Bomb class
 class Bomb(sprite.Sprite):
-    def __init__(self, i) -> None:
+    def __init__(self, pos, waveIndex) -> None:
         super().__init__()
         self.image = BOMB
         self.rect = self.image.get_rect()
-        self.rect.center = (randrange(10, SCREEN_WIDTH-10, 30), -(500*i))
-        self.velocity = randrange(3,20)
+        self.rect.center = pos
+        self.velocity = 3 + waveIndex-1
     def update(self) -> None:
         self.rect.y += self.velocity
         # Hitbox Purposes only
@@ -50,18 +51,18 @@ def difficulty_handler(wave_index) -> int:
 
 
 # Create function to generate bomb
-def bomb_spawn(i) -> Bomb:
-    return Bomb(i)
+def bomb_spawn() -> Bomb:
+    return Bomb()
 
 
 # Create function to spawn based on waves
 def handle_bomb_spawn(group: sprite.Group) -> None:
     global Bomb_count, Wavemin, Wavemax
     amount_spawned = randrange(0, floor(Wavemax))
-    print(amount_spawned)
+    #print(amount_spawned)
     Bomb_count += amount_spawned
     for i in range(floor(Wavemin) + amount_spawned):
-        new_bomb = bomb_spawn(i)
+        new_bomb = bomb_spawn()
         group.add(new_bomb)
 
 
@@ -75,7 +76,7 @@ def handle_bomb_wave(group: sprite.Group, timepaused) -> None:
         Wave_index += 1
         Wavemin += 0.3
         Wavemax += 0.7
-        print(Wavemax)
+        #print(Wavemax)
     if len(group) < BOMB_MAX and bomb_timer/1000 > BOMB_TIME - difficulty_handler(Wave_index):
         Spawn_time = time.get_ticks()
         handle_bomb_spawn(group)
@@ -87,6 +88,7 @@ class Score(sprite.Sprite):
         super().__init__()
         self.font = font.Font('upheavtt.ttf', 40)
         self.score = 0
+        self.scoretimer = 0
         self.text = self.font.render(str(int(self.score)), True, RED)
         self.textrect = self.text.get_rect()
         self.textrect.center = (SCREEN_WIDTH/2, 20)
@@ -95,8 +97,8 @@ class Score(sprite.Sprite):
         SURFACE.blit(self.text, self.textrect)
 
     def update(self, time_paused) -> None:
-        scoretimer = time.get_ticks() - time_paused
-        self.score = scoretimer / 500 
+        self.scoretimer = time.get_ticks() - time_paused
+        self.score = self.scoretimer / 500 
         self.text = self.font.render(str(int(self.score)), True, RED)
 
     def myscore(self) -> int:

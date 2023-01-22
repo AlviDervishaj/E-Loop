@@ -1,7 +1,7 @@
 from random import randrange
 from colors import WHITE
 from pygame import Surface, sprite, time, event, font, mouse
-from constants import SCREEN_WIDTH, QUESTION_TIME, SURFACE, SCREEN_HEIGHT, NEW_QUESTION
+from constants import SCREEN_WIDTH, SURFACE, SCREEN_HEIGHT, NEW_QUESTION, ADDHEALTH
 from .images_helpers import load_image, scale_image
 
 # load question image and scale it
@@ -41,7 +41,7 @@ class Question_Drop(sprite.Sprite):
         super().__init__()
         self.image = QUESTION_DROP
         self.rect = self.image.get_rect()
-        self.rect.center = (randrange(50, SCREEN_WIDTH-50, 50), -200)
+        self.rect.center = (randrange(40, SCREEN_WIDTH-39, 80), -200)
         self.velocity = 5
 
     def update(self, floor) -> None:
@@ -64,7 +64,7 @@ def handle_question_spawn(group: sprite.Group, time_paused) -> None:
     global Spawn_time
     question_timer = time.get_ticks() - time_paused
     question_timer -= Spawn_time
-    if len(group) < 1 and question_timer/1000 > QUESTION_TIME:
+    if len(group) < 1 and question_timer/1000 >200:
 
         Spawn_time = time.get_ticks()
         new_question = question_spawn()
@@ -143,5 +143,6 @@ class Button(sprite.Sprite):
                 if not self.correct:
                     self.image = BUTTONDEAD
                 else:
+                    event.post(event.Event(ADDHEALTH))
                     self.dead = True
     

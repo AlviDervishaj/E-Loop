@@ -1,7 +1,8 @@
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH, VELOCITY, DEATH
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH, VELOCITY, DEATH, SURFACE
+from colors import WHITE
 from .images_helpers import scale_image, load_image
 from .floor_helpers import FLOOR_HEIGHT
-from pygame import K_LEFT, K_RIGHT, K_a, K_d, Surface, sprite, key, event
+from pygame import K_LEFT, K_RIGHT, K_a, K_d, Surface, sprite, key, event, font
 
 # load all sprites for walk right animation
 char_walk_right = [
@@ -56,6 +57,8 @@ CHARACTER_X = SCREEN_WIDTH / 2
 CHARACTER_Y = SCREEN_HEIGHT - FLOOR_HEIGHT - CHARACTER_HEIGHT/2 + 12
 
 
+
+
 # Defining class for our character
 class Character(sprite.Sprite):
     def __init__(self, char_right: list, char_left: list, char_standing: Surface) -> None:
@@ -72,8 +75,10 @@ class Character(sprite.Sprite):
 
         # Is a unit for how many shields we can activate
         self.energy = 0
-        # total character health
-        self.health = 3
+        # Total character health
+        self.health = 5
+        # Amount of turrets currently in possesion
+        self.turretAmount = 0
 
     # update function to handle movement
     def update(self) -> None:
@@ -93,7 +98,7 @@ class Character(sprite.Sprite):
             self.image = self.still
 
         # Hitbox Purposes only
-        #draw.rect(SURFACE, (255, 0, 0), self.rect, 2)
+        # draw.rect(SURFACE, (255, 0, 0), self.rect, 2)
 
     def handle_movement(self, keys) -> None:
         # move character left as long as it is on screen
@@ -142,3 +147,9 @@ class Character(sprite.Sprite):
 
     def get_health(self) -> int:
         return self.health
+
+    def add_health(self) -> None:
+        self.health += 1
+    
+    def add_turret(self) -> None:
+        self.turretAmount += 1
