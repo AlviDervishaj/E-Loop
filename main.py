@@ -1,7 +1,7 @@
-from pygame import MOUSEBUTTONDOWN, K_e, K_p, init, quit, time, event, QUIT, KEYDOWN, K_r, K_ESCAPE, mouse
-from constants import SURFACE, NEW_QUESTION, DEATH, PLAYER_DAMAGE
-from helpers import draw_border, collision_detect, Shield, Pop_Up, Question
-from helpers import handle_bomb_wave, handle_question_spawn, question_collision_detect
+from pygame import MOUSEBUTTONDOWN, K_e, K_p, init, quit, time, event, QUIT, KEYDOWN, K_r, K_q, K_ESCAPE, mouse
+from constants import SURFACE, NEW_QUESTION, DEATH, PLAYER_DAMAGE, ADDHEALTH, ADDSHIELD, ADDTURRET
+from helpers import draw_border, collision_detect, Shield, Pop_Up, Question, turretGroup, turretdisplaygroup
+from helpers import spawnTurret, dropSpawn, dropGroup, question_collision_detect, wave_handler
 from sprites import background_group, floor_group, bomb_group, shield_group, character_group, character
 from sprites import pointer_group, question_drop_group, popup_group, score, HUD_object
 from constants import DISPLAY, FPS
@@ -52,12 +52,15 @@ def draw_window() -> None:
     # draw all our sprite groups in order
     background_group.draw(SURFACE)
     floor_group.draw(SURFACE)
-    question_drop_group.draw(SURFACE)
+    turretGroup.draw(SURFACE)
+    # question_drop_group.draw(SURFACE)
+    dropGroup.draw(SURFACE)
     bomb_group.draw(SURFACE)
     character_group.draw(SURFACE)
     shield_group.draw(SURFACE)
     score.draw()
     HUD_object.draw()
+    turretdisplaygroup.draw(SURFACE)
     HUD_object.draw_health(character.get_health())
 
 
@@ -66,8 +69,11 @@ def update_window() -> None:
     character_group.update()
     shield_group.update(character.pos(), bomb_group)
     bomb_group.update()
-    question_drop_group.update(floor_group)
+    turretGroup.update(bomb_group, dropGroup)
+    # question_drop_group.update(floor_group)
+    dropGroup.update(floor_group, character_group)
     score.update(extratime)
+    turretdisplaygroup.update(character.turretAmount)
     HUD_object.update(durability, shield_group, character.get_shield_amount())
 
 # main function that will run once file is executed ( run )
@@ -108,8 +114,18 @@ def main() -> None:
                     character.add_shield()
             if _event_.type == PLAYER_DAMAGE:
                 character.damage()
+            if _event_.type == ADDHEALTH:
+                if (character.get_health() < 16):
+                    character.add_health()
+            if _event_.type == ADDSHIELD:
+                character.add_shield()
+
+            if _event_.type == ADDTURRET:
+                character.add_turret()
+
             if _event_.type == MOUSEBUTTONDOWN:
                 isclicked = True
+
             if _event_.type == DEATH:
                 pause_game()
                 game_over = Question(
@@ -133,6 +149,11 @@ def main() -> None:
                         pos = character.pos()
                         new_shield = Shield(pos)
                         shield_group.add(new_shield)
+                if _event_.key == K_q:
+                    if character.energy > 0 and character.turretAmount > 0:
+                        character.energy -= 1
+                        character.turretAmount -= 1
+                        spawnTurret(character.pos())
                 # Developer purposes only
                 # if _event_.key == K_p:
                     # pause_game()
@@ -141,11 +162,12 @@ def main() -> None:
         draw_window()
         # If not paused update every group
         if not ispaused:
-            handle_bomb_wave(bomb_group, extratime)
-            handle_question_spawn(question_drop_group, extratime)
+            # handle_bomb_wave(bomb_group, extratime)
+            wave_handler()
+            # handle_question_spawn(question_drop_group, extratime)
+            dropSpawn()
             collision_detect(bomb_group, floor_group, character_group)
-            question_collision_detect(
-                question_drop_group, character_group)
+            # question_collision_detect(question_drop_group, character_group)
             update_window()
         # Draws Pointer even when paused
         if ispaused:
