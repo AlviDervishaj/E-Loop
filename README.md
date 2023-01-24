@@ -26,7 +26,7 @@ Main concepts.
 - upheavtt.ttf : Main font used in-game
 
 # Why E-Loop ?
-E-Loop started out as a fun creative game where Epoka staff could learn how to code. 
+E-Loop started out as a fun creative game where Epoka staff could learn how to code, but later was transformed into a simple highscore game.
 We wanted to make the experience as pleasing and as fun as possible.
 
 Of course this project is far from over and we will continue to contribute and develope more cool and fun features.
